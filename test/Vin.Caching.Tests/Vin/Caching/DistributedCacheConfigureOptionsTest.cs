@@ -8,12 +8,12 @@ using Xunit;
 
 namespace Vin.Caching.Tests.Vin.Caching
 {
-    public class DistributedCache_ConfigureOptions_Test : TestBase
+    public class DistributedCacheConfigureOptionsTest : TestBase
     {
         [Fact]
         public void Configure_CacheOptions()
         {
-            var cacheOptions = ServiceProvider.GetRequiredService<IOptions<DistributedCacheEntryOptions>>();
+            var cacheOptions = this.ServiceProvider.GetRequiredService<IOptions<DistributedCacheEntryOptions>>();
             cacheOptions.ShouldNotBeNull();
             cacheOptions.Value.AbsoluteExpiration.ShouldBe(new DateTimeOffset(new DateTime(2099, 1, 1, 12, 0, 0)));
             cacheOptions.Value.SlidingExpiration.ShouldBe(new TimeSpan(0, 0, 30, 0));
@@ -22,7 +22,7 @@ namespace Vin.Caching.Tests.Vin.Caching
         [Fact]
         public void Expired()
         {
-            var cache = ServiceProvider.GetRequiredService<IDistributedCache<Entity>>();
+            var cache = this.ServiceProvider.GetRequiredService<IDistributedCache<Entity>>();
             DistributedCacheEntryOptions options= new DistributedCacheEntryOptions();
             var entity = new Entity
             {
