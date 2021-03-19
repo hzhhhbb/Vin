@@ -65,9 +65,9 @@ namespace System
         {
             Check.NotNull(str, nameof(str));
 
-            if (str.Length < len)
+            if (len < 0 || str.Length < len)
             {
-                throw new ArgumentException("len argument can not be bigger than given string's length!");
+                throw new ArgumentOutOfRangeException(nameof(len));
             }
 
             return str.Substring(0, len);
@@ -78,15 +78,17 @@ namespace System
         /// </summary>
         public static string NormalizeLineEndings(this string str)
         {
+            // https://www.ruanyifeng.com/blog/2006/04/post_213.html
             return str.Replace("\r\n", "\n").Replace("\r", "\n").Replace("\n", Environment.NewLine);
         }
 
         /// <summary>
-        ///     Gets index of nth occurrence of a char in a string.
+        /// 获取指定字符<paramref name="c"/>第<paramref name="n"/>次出现在字符串中的索引
         /// </summary>
         /// <param name="str">source string to be searched</param>
         /// <param name="c">Char to search in <see cref="str" /></param>
         /// <param name="n">Count of the occurrence</param>
+        /// <returns>索引，不存在则返回-1</returns>
         public static int NthIndexOf(this string str, char c, int n)
         {
             Check.NotNull(str, nameof(str));
@@ -120,7 +122,7 @@ namespace System
         }
 
         /// <summary>
-        ///     Removes first occurrence of the given postfixes from end of the given string.
+        ///     去除字符串中匹配的第一个后缀
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
@@ -130,7 +132,7 @@ namespace System
         {
             if (str.IsNullOrEmpty())
             {
-                return null;
+                return str;
             }
 
             if (postFixes.IsNullOrEmpty())
@@ -150,7 +152,7 @@ namespace System
         }
 
         /// <summary>
-        ///     Removes first occurrence of the given prefixes from beginning of the given string.
+        ///     去除字符串中匹配的第一个后缀
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="preFixes">one or more prefix.</param>
@@ -161,7 +163,7 @@ namespace System
         }
 
         /// <summary>
-        ///     Removes first occurrence of the given prefixes from beginning of the given string.
+        ///     去除字符串中匹配的第一个后缀
         /// </summary>
         /// <param name="str">The string.</param>
         /// <param name="comparisonType">String comparison type</param>
@@ -171,7 +173,7 @@ namespace System
         {
             if (str.IsNullOrEmpty())
             {
-                return null;
+                return str;
             }
 
             if (preFixes.IsNullOrEmpty())
@@ -212,29 +214,14 @@ namespace System
         {
             Check.NotNull(str, nameof(str));
 
-            if (str.Length < len)
+            if (len < 0 || str.Length < len)
             {
-                throw new ArgumentException("len argument can not be bigger than given string's length!");
+                throw new ArgumentOutOfRangeException(nameof(len));
             }
 
             return str.Substring(str.Length - len, len);
         }
 
-        /// <summary>
-        ///     Uses string.Split method to split given string by given separator.
-        /// </summary>
-        public static string[] Split(this string str, string separator)
-        {
-            return str.Split(new[] {separator}, StringSplitOptions.None);
-        }
-
-        /// <summary>
-        ///     Uses string.Split method to split given string by given separator.
-        /// </summary>
-        public static string[] Split(this string str, string separator, StringSplitOptions options)
-        {
-            return str.Split(new[] {separator}, options);
-        }
 
         /// <summary>
         ///     Uses string.Split method to split given string by <see cref="Environment.NewLine" />.
