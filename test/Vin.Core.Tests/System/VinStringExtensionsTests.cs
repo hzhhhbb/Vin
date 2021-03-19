@@ -104,8 +104,6 @@ namespace System
             "TestString".RemovePostFix(StringComparison.OrdinalIgnoreCase, "string1", "string").ShouldBe("Test");
             //Unmatched case
             "MyTestAppService".RemovePostFix("Unmatched").ShouldBe("MyTestAppService");
-
-            "TestString".RemovePostFix()
         }
 
         [Fact]
