@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
 namespace Vin
 {
@@ -89,7 +88,7 @@ namespace Vin
             return value;
         }
 
-        public static ICollection<T> NotNullOrEmpty<T>(ICollection<T> value,[NotNull] string parameterName)
+        public static ICollection<T> NotNullOrEmpty<T>(ICollection<T> value, [NotNull] string parameterName)
         {
             if (value.IsNullOrEmpty())
             {
