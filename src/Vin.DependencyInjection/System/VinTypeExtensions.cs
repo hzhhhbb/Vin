@@ -59,7 +59,7 @@ namespace System
         /// </summary>
         /// <param name="type">The type to get its base classes.</param>
         /// <param name="stoppingType">
-        ///     A type to stop going to the deeper base classes. This type will be be included in the
+        ///     A type to stop going to the deeper base classes. This type will not be included in the
         ///     returned array
         /// </param>
         /// <param name="includeObject">True, to include the standard <see cref="object" /> type in the returned array.</param>
