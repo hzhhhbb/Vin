@@ -91,6 +91,7 @@ namespace Vin
         {
             string str = "Vincent";
             Check.Length(str, nameof(str), 7);
+            Check.Length(str, nameof(str), 7,7);
             Should.Throw(() =>Check.Length(str, nameof(str), 6),typeof(ArgumentException));
             Should.Throw(() =>Check.Length(str, nameof(str), 7,8),typeof(ArgumentException));
 

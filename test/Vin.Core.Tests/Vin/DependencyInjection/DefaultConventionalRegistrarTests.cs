@@ -21,11 +21,12 @@ namespace Vin.DependencyInjection
             services.AddType(typeof(TransientClass));
             services.AddType(typeof(ScopedClass));
             services.AddType(typeof(SingletonClass));
+            services.AddType(typeof(DisableConventionalRegistrationClass));
 
             services.ToList().ShouldContain(u=>u.ServiceType==typeof(TransientClass)&&u.Lifetime==ServiceLifetime.Transient);
             services.ToList().ShouldContain(u=>u.ServiceType==typeof(ScopedClass)&&u.Lifetime==ServiceLifetime.Scoped);
             services.ToList().ShouldContain(u=>u.ServiceType==typeof(SingletonClass)&&u.Lifetime==ServiceLifetime.Singleton);
-
+            services.ToList().ShouldNotContain(u=>u.ServiceType==typeof(DisableConventionalRegistrationClass));
         }
 
         [Fact()]
@@ -50,6 +51,12 @@ namespace Vin.DependencyInjection
 
         }
         public class ScopedClass:IScopedDependency
+        {
+
+        }
+
+        [DisableConventionalRegistration]
+        public class DisableConventionalRegistrationClass:IScopedDependency
         {
 
         }

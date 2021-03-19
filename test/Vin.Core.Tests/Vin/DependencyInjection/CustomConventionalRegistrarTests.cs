@@ -29,6 +29,9 @@ namespace Vin.DependencyInjection
             services.ToList().ShouldContain(u=>u.ServiceType==typeof(MyCustomClass)&&u.Lifetime==ServiceLifetime.Singleton);
             services.ToList().ShouldNotContain(u=>u.ServiceType==typeof(MyNonRegisteredClass)&&u.Lifetime==ServiceLifetime.Singleton);
 
+            services=new ServiceCollection();
+            services.AddAssemblyOf<CustomConventionalRegistrarTests>();
+            services.Count.ShouldBeGreaterThan(2);
         }
 
         public class MyCustomConventionalRegistrar : ConventionalRegistrarBase
