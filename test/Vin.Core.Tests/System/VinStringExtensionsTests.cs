@@ -1,26 +1,20 @@
-﻿using Xunit;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Text;
 using Shouldly;
+using Xunit;
 using Xunit.Abstractions;
-using Xunit.Sdk;
 
 namespace System
 {
     public class VinStringExtensionsTests
     {
-        public ITestOutputHelper Output { get; set; }
-
         public VinStringExtensionsTests(ITestOutputHelper output)
         {
             this.Output = output;
         }
 
-        [Fact()]
+        public ITestOutputHelper Output { get; set; }
+
+        [Fact]
         public void EnsureEndsWithTest()
         {
             "Vincent!".EnsureEndsWith('!').ShouldBe("Vincent!");
@@ -29,7 +23,7 @@ namespace System
             Should.Throw(() => s.EnsureEndsWith('!'), typeof(ArgumentNullException));
         }
 
-        [Fact()]
+        [Fact]
         public void EnsureStartsWithTest()
         {
             "Vincent".EnsureStartsWith('V').ShouldBe("Vincent");
@@ -38,25 +32,25 @@ namespace System
             Should.Throw(() => s.EnsureStartsWith('!'), typeof(ArgumentNullException));
         }
 
-        [Fact()]
+        [Fact]
         public void IsNullOrEmptyTest()
         {
             string.Empty.IsNullOrEmpty().ShouldBeTrue();
-            ((string)null).IsNullOrEmpty().ShouldBeTrue();
+            ((string) null).IsNullOrEmpty().ShouldBeTrue();
             "   ".IsNullOrEmpty().ShouldBeFalse();
             "Vincent".IsNullOrEmpty().ShouldBeFalse();
         }
 
-        [Fact()]
+        [Fact]
         public void IsNullOrWhiteSpaceTest()
         {
             string.Empty.IsNullOrWhiteSpace().ShouldBeTrue();
-            ((string)null).IsNullOrWhiteSpace().ShouldBeTrue();
+            ((string) null).IsNullOrWhiteSpace().ShouldBeTrue();
             "   ".IsNullOrWhiteSpace().ShouldBeTrue();
             "Vincent".IsNullOrWhiteSpace().ShouldBeFalse();
         }
 
-        [Fact()]
+        [Fact]
         public void LeftTest()
         {
             string s = null;
@@ -68,19 +62,18 @@ namespace System
             Should.Throw(() => "Vincent".Left(-1), typeof(ArgumentOutOfRangeException));
 
             "中文博大精深啊".Left(2).ShouldBe("中文");
-
         }
 
-        [Fact()]
+        [Fact]
         public void NormalizeLineEndingsTest()
         {
-            string str = "This\r\n is a\r test \n string";
+            var str = "This\r\n is a\r test \n string";
             str = str.NormalizeLineEndings();
             str.SplitToLines().Length.ShouldBe(4);
             this.Output.WriteLine(str);
         }
 
-        [Fact()]
+        [Fact]
         public void NthIndexOfTest()
         {
             const string str = "This is a test string";
@@ -92,7 +85,7 @@ namespace System
             str.NthIndexOf('i', 4).ShouldBe(-1);
         }
 
-        [Fact()]
+        [Fact]
         public void RemovePostFixTest()
         {
             //null case
@@ -113,7 +106,7 @@ namespace System
             "MyTestAppService".RemovePostFix("Unmatched").ShouldBe("MyTestAppService");
         }
 
-        [Fact()]
+        [Fact]
         public void RemovePreFixTest()
         {
             (null as string).RemovePreFix("Test").ShouldBeNull();
@@ -130,7 +123,7 @@ namespace System
             "TestString".RemovePreFix("").ShouldBe("TestString");
         }
 
-        [Fact()]
+        [Fact]
         public void ReplaceFirstTest()
         {
             "Test string".ReplaceFirst("s", "X").ShouldBe("TeXt string");
@@ -138,7 +131,7 @@ namespace System
             "Test test test".ReplaceFirst("test", "XX", StringComparison.OrdinalIgnoreCase).ShouldBe("XX test test");
         }
 
-        [Fact()]
+        [Fact]
         public void RightTest()
         {
             string s = null;
@@ -151,7 +144,7 @@ namespace System
         }
 
 
-        [Fact()]
+        [Fact]
         public void ToCamelCaseTest()
         {
             (null as string).ToCamelCase().ShouldBe(null);
@@ -160,7 +153,7 @@ namespace System
             "中文博大精深".ToCamelCase().ShouldBe("中文博大精深");
         }
 
-        [Fact()]
+        [Fact]
         public void ToSentenceCaseTest()
         {
             (null as string).ToSentenceCase().ShouldBe(null);
@@ -171,7 +164,7 @@ namespace System
             "中文博大精深".ToSentenceCase().ShouldBe("中文博大精深");
         }
 
-        [Fact()]
+        [Fact]
         public void ToKebabCaseTest()
         {
             (null as string).ToKebabCase().ShouldBe(null);
@@ -182,7 +175,7 @@ namespace System
             "中文博大精深".ToKebabCase().ShouldBe("中文博大精深");
         }
 
-        [Fact()]
+        [Fact]
         public void ToSnakeCaseTest()
         {
             (null as string).ToSnakeCase().ShouldBe(null);
@@ -204,31 +197,25 @@ namespace System
         public void ToPascalCase_CurrentCulture_Test()
         {
             "istanbul".ToPascalCase(true).ShouldBe("Istanbul");
-
         }
 
-        [Fact()]
+        [Fact]
         public void ToEnumTest()
         {
             "MyValue1".ToEnum<MyEnum>().ShouldBe(MyEnum.MyValue1);
             "MyValue2".ToEnum<MyEnum>().ShouldBe(MyEnum.MyValue2);
             "myValue2".ToEnum<MyEnum>(true).ShouldBe(MyEnum.MyValue2);
         }
-        private enum MyEnum
-        {
-            MyValue1,
-            MyValue2
-        }
 
-        [Fact()]
+        [Fact]
         public void ToMd5Test()
         {
-            string str = "Vincent";
-            string md5 = str.ToMd5();
+            var str = "Vincent";
+            var md5 = str.ToMd5();
             md5.ShouldBe("D3FACF360F0B4F2D570C093E7E130210");
         }
 
-        [Fact()]
+        [Fact]
         public void TruncateTest()
         {
             const string str = "This is a test string";
@@ -241,7 +228,7 @@ namespace System
             nullValue.Truncate(5).ShouldBe(null);
         }
 
-        [Fact()]
+        [Fact]
         public void TruncateFromBeginningTest()
         {
             const string str = "This is a test string";
@@ -254,7 +241,7 @@ namespace System
             nullValue.Truncate(5).ShouldBe(null);
         }
 
-        [Fact()]
+        [Fact]
         public void TruncateWithPostfixTest()
         {
             const string str = "This is a test string";
@@ -280,7 +267,7 @@ namespace System
         [InlineData("MyStringİ")]
         public void GetBytesTest(string str)
         {
-            Output.WriteLine(str);
+            this.Output.WriteLine(str);
             var bytes = str.GetBytes();
             bytes.ShouldNotBeNull();
             bytes.Length.ShouldBeGreaterThanOrEqualTo(str.Length);
@@ -296,6 +283,12 @@ namespace System
             bytes.ShouldNotBeNull();
             bytes.Length.ShouldBeGreaterThanOrEqualTo(str.Length);
             Encoding.ASCII.GetString(bytes).ShouldBe(str);
+        }
+
+        private enum MyEnum
+        {
+            MyValue1,
+            MyValue2
         }
     }
 }
