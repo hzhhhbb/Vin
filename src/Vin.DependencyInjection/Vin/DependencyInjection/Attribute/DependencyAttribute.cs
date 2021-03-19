@@ -8,10 +8,6 @@ namespace Vin.DependencyInjection
     /// </summary>
     public class DependencyAttribute:Attribute
     {
-        public DependencyAttribute()
-        {
-        }
-
         public DependencyAttribute(ServiceLifetime lifetime,RegisterType registerType=DependencyInjection.RegisterType.Normal)
         {
             this.Lifetime = lifetime;

@@ -46,8 +46,6 @@ namespace Vin.DependencyInjection
                         case RegisterType.TryAdd:
                             services.TryAdd(serviceDescriptor);
                             break;
-                        default:
-                            throw new NotImplementedException($"未实现的注入方式：{nameof(dependencyAttribute.RegisterType)}");
                     }
                 }
             }
