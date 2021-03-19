@@ -20,6 +20,7 @@ namespace Vin.DependencyInjection
 
             //Act
             services.AddConventionalRegistrar(new MyCustomConventionalRegistrar());
+            services.AddConventionalRegistrar(new MyCustomConventionalRegistrar1());
             services.AddTypes(typeof(MyCustomClass), typeof(MyClass), typeof(MyNonRegisteredClass));
 
             //Assert
@@ -40,7 +41,12 @@ namespace Vin.DependencyInjection
                 }
             }
         }
-
+        public class MyCustomConventionalRegistrar1 : ConventionalRegistrarBase
+        {
+            public override void AddType(IServiceCollection services, Type type)
+            {
+            }
+        }
 
         public class MyCustomClass
         {
